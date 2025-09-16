@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>射擊戰旗：規則總覽</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+<header>
+  <div class="aside">
+    <h1>射擊戰旗：規則總覽</h1>
+  </div>
+  <div class="toolbar">
+    <a class="btn btn-ghost" href="index.html">← 回 Army Builder</a>
+  </div>
+</header>
+
+<div class="wrap" style="grid-template-columns:1fr">
+  <section class="card">
+    <h2>規則目錄</h2>
+    <div class="body" id="toc" class="small"></div>
+  </section>
+
+  <section class="card">
+    <h2>完整規則</h2>
+    <div class="body" id="rulesContainer"></div>
+  </section>
+</div>
+
+<script src="assets/data_rules.js"></script>
+<script>
+  // 以 data_rules.js 的 RULES_TEXT 來渲染規則頁
+  const container = document.getElementById('rulesContainer');
+  const toc = document.getElementById('toc');
+
+  function renderRules(){
+    if(!window.RULES_TEXT){ container.innerHTML = '<p class="warn">規則資料未載入。</p>'; return; }
+    const sections = RULES_TEXT.sections || [];
+    toc.innerHTML = sections.map((s,i)=>`<div class="chip"><a href="#sec${i}">${i+1}. ${s.title}</a></div>`).join(' ');
+    container.innerHTML = sections.map((s,i)=>`
+      <article id="sec${i}" style="margin-bottom:24px">
+        <h3>${i+1}) ${s.title}</h3>
+        ${ (s.paras||[]).map(p=>`<p>${p}</p>`).join('') }
+        ${ (s.lists||[]).map(list=>{
+            const items = list.items.map(it=>`<li>${it}</li>`).join('');
+            return `<h4 class="small">${list.title||''}</h4><ul class="small">${items}</ul>`;
+          }).join('') }
+        ${ (s.tables||[]).map(tbl=>{
+            const head = `<tr>${tbl.headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
+            const rows = tbl.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+            return `<div style="overflow:auto;margin:8px 0"><table>${head}${rows}</table></div>`;
+          }).join('') }
+      </article>
+    `).join('');
+  }
+  renderRules();
+</script>
+</body>
+</html>

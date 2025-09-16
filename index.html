@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>射擊戰旗 Army Builder</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+<header>
+  <div class="aside">
+    <h1>射擊戰旗 Army Builder</h1>
+	<div class="chip dropdown" id="capChip">
+	  規模：<strong id="capLabel">300</strong> pt ▾
+	  <div class="menu" id="capMenu" hidden>
+		<button data-cap="100">100 pt</button>
+		<button data-cap="200">200 pt</button>
+		<button data-cap="300">300 pt</button>
+	  </div>
+	</div>
+  </div>
+  <div class="toolbar">
+    <a class="btn btn-ghost" href="rules.html">規則說明</a>
+    <button class="btn btn-ghost" id="btnExport" type="button">匯出 JSON</button>
+	<label class="btn btn-ghost" for="fileImport" style="cursor:pointer">匯入 JSON</label>
+	<input id="fileImport" type="file" accept="application/json" style="display:none" />
+	<button class="btn btn-ghost" id="btnShare" type="button">分享連結</button>
+	<button class="btn btn-bad" id="btnClear" type="button">清空清單</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- 編輯面板 -->
+  <section class="card" id="panel">
+    <h2 id="formTitle">新增單位</h2>
+    <div class="body">
+      <div class="row">
+        <label for="name">單位名稱（可留空）</label>
+        <input id="name" type="text" placeholder="如：阿強 / HMG手 / 醫護-1" />
+      </div>
+
+      <div class="row">
+        <label for="role">兵種</label>
+        <select id="role"></select>
+      </div>
+
+      <div class="row">
+        <label for="mainWeapon">主武器</label>
+        <select id="mainWeapon"></select>
+      </div>
+
+      <div class="row">
+        <label for="sidearm">副武器</label>
+        <select id="sidearm"></select>
+      </div>
+
+      <div class="row">
+        <label>部位護甲</label>
+        <div class="grid2">
+          <div>
+            <label class="small">頭盔</label>
+            <select id="armorHead"></select>
+          </div>
+          <div>
+            <label class="small">胸甲（保胸/腹）</label>
+            <select id="armorChest"></select>
+          </div>
+          <div>
+            <label class="small">臂甲（雙手）</label>
+            <select id="armorArm"></select>
+          </div>
+          <div>
+            <label class="small">腿甲（雙腿）</label>
+            <select id="armorLeg"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>職能/裝備</label>
+        <div id="extrasBox" class="inline"></div>
+      </div>
+
+      <div class="row">
+        <label>即時分數</label>
+        <div class="inline">
+          <div class="chip">兵種：<span id="costRole">0</span></div>
+          <div class="chip">主武：<span id="costMain">0</span></div>
+          <div class="chip">副武：<span id="costSide">0</span></div>
+          <div class="chip">護甲：<span id="costArmor">0</span></div>
+          <div class="chip">裝備：<span id="costExtra">0</span></div>
+          <div class="chip"><strong>小計：<span id="costTotal">5</span></strong></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div></div>
+        <div class="inline">
+          <button class="btn btn-prim" id="btnAdd" type="button">加入列表</button>
+          <button class="btn btn-ghost" id="btnReset" type="button">重填</button>
+        </div>
+      </div>
+
+      <div class="info" id="warnings"></div>
+    </div>
+  </section>
+
+  <!-- 清單 -->
+  <section class="card">
+    <h2>小隊清單</h2>
+    <div class="body">
+      <div class="row" style="align-items:center">
+        <label>總分</label>
+        <div style="width:100%">
+          <div class="inline" style="justify-content:space-between">
+            <div class="chip">已用：<strong id="sumPts">0</strong> / <span id="capInline">300</span> pt</div>
+            <div class="chip">成員數：<strong id="sumUnits">0</strong></div>
+            <div class="chip">指揮官：<strong id="sumCmd">0</strong> 名（最多 1）</div>
+          </div>
+          <div class="totalbar" style="margin-top:8px"><span id="bar"></span></div>
+        </div>
+      </div>
+
+      <div style="overflow:auto">
+        <table id="list">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>名稱 / 兵種 / 數值</th>
+              <th>主武 / 副武</th>
+              <th>武器數值</th>
+              <th>護甲（部位）</th>
+              <th>護甲值</th>
+              <th>分數</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr><td colspan="6">合計</td><td id="sumPtsFoot">0</td><td></td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 資料檔（JSON 物件） -->
+<script src="/assets/data_roles.js"></script>
+<script src="/assets/data_weapons.js"></script>
+<script src="/assets/data_armors.js"></script>
+<script src="/assets/data_rules.js"></script>
+<!-- 主程式（模組化） -->
+<script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>
