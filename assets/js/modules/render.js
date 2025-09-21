@@ -1,15 +1,11 @@
-// 成本計算顯示 & 清單渲染
+﻿// 成本計算顯示 & 清單渲染
 import { dom, state } from './state.js';
 import { extrasCost, weaponCost, pickArmorFromIds, armorPickCost } from './calc.js';
 import { fmtRole, fmtWeapon, fmtWeaponStat, fmtArmor, fmtArmorValues } from './ui.js';
-function assertDomReady(){
-    if(!dom.costBase) throw new Error('DOM not initialized: call initDom() before render');
-  }
+
 export function currentCosts(){
-    assertDomReady();  
   const BASE = window.BASE_COST||5;
   const role = (window.ROLES||[]).find(r=>r.id===dom.roleSel.value);
-  const cBase  = BASE;
   const cRole  = role ? role.cost : 0;
   const cMain  = weaponCost(dom.mainSel.value);
   const cSide  = weaponCost(dom.sideSel.value);
@@ -19,9 +15,8 @@ export function currentCosts(){
   const cArmor = armorPickCost(picks);
   const extraIds = [...dom.extrasBox.querySelectorAll('input[type=checkbox]:checked')].map(cb=>cb.value);
   const cExtra = extrasCost(extraIds);
-  const total  = cBase + cRole + cMain + cSide + cArmor + cExtra;
+  const total  =  cRole + cMain + cSide + cArmor + cExtra;
 
-  dom.costBase.textContent  = cBase;
   dom.costRole.textContent  = cRole;
   dom.costMain.textContent  = cMain;
   dom.costSide.textContent  = cSide;

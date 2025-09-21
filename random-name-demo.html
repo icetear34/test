@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隨機名稱功能測試</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        .demo { background: white; padding: 20px; border-radius: 8px; max-width: 400px; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; flex: 1; margin-right: 8px; }
+        button { padding: 8px 12px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .inline { display: flex; align-items: center; }
+        h2 { color: #333; }
+        .name-list { margin-top: 20px; }
+        .name-item { padding: 5px; margin: 2px 0; background: #f8f9fa; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <h2>🎲 隨機士兵名稱生成器</h2>
+        <div class="inline">
+            <input type="text" id="nameDisplay" placeholder="點擊按鈕生成隨機名稱" />
+            <button onclick="generateRandomName()">🎲 隨機</button>
+        </div>
+        
+        <div class="name-list">
+            <h3>名稱類型包含：</h3>
+            <div class="name-item">✅ 台灣常見姓名（如：王小明、李大華）</div>
+            <div class="name-item">✅ 軍事風格代號（如：獵鷹、雷霆）</div>
+            <div class="name-item">✅ NATO代號（如：Alpha-1、Bravo-2）</div>
+            <div class="name-item">✅ 地區代號（如：台北兵、高雄兵）</div>
+        </div>
+    </div>
+
+    <script type="module">
+        // 直接引入隨機名稱生成函式
+        const SOLDIER_NAMES = [
+            // 台灣常見姓氏
+            '王小明', '李大華', '陳志強', '林美玲', '張雅芳', '劉建國', '楊淑惠', '黃文彬',
+            '吳志偉', '蔡雅婷', '鄭家豪', '謝淑芬', '周明哲', '許雅君', '孫志宏', '胡美珠',
+            
+            // 軍事風格代號
+            '獵鷹', '雷霆', '鋼鐵', '閃電', '暴風', '獵豹', '猛虎', '烈火',
+            '寒冰', '巨石', '利刃', '毒蛇', '幽靈', '蒼鷹', '野狼', '黑豹',
+            
+            // 數字代號
+            'Alpha-1', 'Bravo-2', 'Charlie-3', 'Delta-4', 'Echo-5', 'Foxtrot-6',
+            'Golf-7', 'Hotel-8', 'India-9', 'Juliet-10', 'Kilo-11', 'Lima-12',
+            
+            // 台灣城市代號
+            '台北兵', '高雄兵', '台中兵', '台南兵', '桃園兵', '新竹兵',
+            '基隆兵', '嘉義兵', '台東兵', '花蓮兵', '宜蘭兵', '屏東兵'
+        ];
+
+        function getRandomSoldierName() {
+            const randomIndex = Math.floor(Math.random() * SOLDIER_NAMES.length);
+            return SOLDIER_NAMES[randomIndex];
+        }
+
+        // 全域函式供按鈕使用
+        window.generateRandomName = function() {
+            document.getElementById('nameDisplay').value = getRandomSoldierName();
+        }
+
+        // 頁面載入時生成一個隨機名稱
+        window.addEventListener('load', () => {
+            generateRandomName();
+        });
+    </script>
+</body>
+</html>

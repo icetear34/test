@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>射擊戰旗 Army Builder</title>
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
 <header>
@@ -35,8 +35,11 @@
     <h2 id="formTitle">新增單位</h2>
     <div class="body">
       <div class="row">
-        <label for="name">單位名稱（可留空）</label>
-        <input id="name" type="text" placeholder="如：阿強 / HMG手 / 醫護-1" />
+        <label for="name">單位名稱</label>
+        <div class="inline">
+          <input id="name" type="text" placeholder="如：阿強 / HMG手 / 醫護-1" style="flex:1; margin-right:8px;" />
+          <button class="btn btn-ghost" id="btnRandomName" type="button">🎲 隨機</button>
+        </div>
       </div>
 
       <div class="row">
@@ -146,11 +149,11 @@
 </div>
 
 <!-- 資料檔（JSON 物件） -->
-<script src="/assets/data_roles.js"></script>
-<script src="/assets/data_weapons.js"></script>
-<script src="/assets/data_armors.js"></script>
-<script src="/assets/data_rules.js"></script>
+<script src="assets/js/data/roles.js"></script>
+<script src="assets/js/data/weapons.js"></script>
+<script src="assets/js/data/armors.js"></script>
+<script src="assets/js/data/rules.js"></script>
 <!-- 主程式（模組化） -->
-<script type="module" src="/assets/js/main.js"></script>
+<script type="module" src="assets/js/modules/main.js"></script>
 </body>
 </html>

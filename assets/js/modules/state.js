@@ -15,7 +15,7 @@ export function initDom() {
   dom.aLegSel   = el('armorLeg');
   dom.extrasBox = el('extrasBox');
 
-  dom.costBase  = el('costBase');
+
   dom.costRole  = el('costRole');
   dom.costMain  = el('costMain');
   dom.costSide  = el('costSide');
@@ -26,6 +26,7 @@ export function initDom() {
 
   dom.btnAdd    = el('btnAdd');
   dom.btnReset  = el('btnReset');
+  dom.btnRandomName = el('btnRandomName');
 
   dom.sumPts     = el('sumPts');
   dom.sumPtsFoot = el('sumPtsFoot');

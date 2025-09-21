@@ -2,7 +2,7 @@
 import { dom, state, LS_KEY } from './state.js';
 import { currentCosts, showWarnings, renderList } from './render.js';
 import { deriveStats, migrateUnit, serialize } from './calc.js';
-import { toBase64, fromBase64 } from './utils.js';
+import { toBase64, fromBase64, getRandomSoldierName } from './utils.js';
 import { initSelectors, renderExtras } from './ui.js';
 
 export function bindForm(){
@@ -46,6 +46,11 @@ export function bindForm(){
   });
 
   dom.btnReset.addEventListener('click', (e)=>{ e.preventDefault(); resetForm(); });
+
+  dom.btnRandomName.addEventListener('click', (e)=>{
+    e.preventDefault();
+    document.getElementById('name').value = getRandomSoldierName();
+  });
 
   document.querySelector('#list').addEventListener('click', (e)=>{
     const act = e.target.dataset.act;
@@ -124,7 +129,7 @@ export function bindToolbar(){
 }
 
 export function resetForm(){
-  document.getElementById('name').value='';
+  document.getElementById('name').value = getRandomSoldierName();
   dom.roleSel.selectedIndex=0; dom.mainSel.selectedIndex=0; dom.sideSel.selectedIndex=0;
   dom.aHeadSel.selectedIndex=0; dom.aChestSel.selectedIndex=0; dom.aArmSel.selectedIndex=0; dom.aLegSel.selectedIndex=0;
   renderExtras(dom.roleSel.value); currentCosts(); showWarnings();
